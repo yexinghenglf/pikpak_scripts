@@ -2,8 +2,8 @@ name: Scheduled Node.js CI
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-  workflow_dispatch: # 添加这行以允许手动触发
+    - cron: "0 1 * * *"  # 每天 UTC 时间 1 点执行
+  workflow_dispatch: # 允许手动触发
 
 jobs:
   build:
@@ -12,15 +12,15 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x] 
+        node-version: [20.x]  # 定义 Node.js 版本
 
     steps:
-      - uses: actions/checkout@v3 
+      - uses: actions/checkout@v3  # 检出代码
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install 
+        run: npm install  # 安装依赖
       - name: Run a script
-        run: node main.js 
+        run: node main.js  # 运行 main.js 脚本
